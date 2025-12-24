@@ -6541,7 +6541,7 @@ Worksheet sheet = workbook.getWorksheets().get(0);
 sheet.getCellRange("A1").setValue("&=Array");
 
 // Add a parameter named "Array" with an array of strings as its value
-workbook.getMarkerDesigner().addParameter("Array", new String[] { "Spire.Xls", "Spire.Doc", "Spire.PDF", "Spire.Presentation", "Spire.Email" });
+workbook.getMarkerDesigner().addArray("Array", new String[] { "Spire.Xls", "Spire.Doc", "Spire.PDF", "Spire.Presentation", "Spire.Email" });
 
 // Apply the marker design to the workbook
 workbook.getMarkerDesigner().apply();
@@ -9342,4 +9342,37 @@ slicers.clear();
 ```
 
 ---
+# spire.xls get embedded image cell
+## Retrieve the cell information of an embedded image in Excel
+```java
+// Create a new Workbook instance
+Workbook workbook = new Workbook();
 
+// Get the first worksheet from the workbook's worksheets collection
+Worksheet worksheet = workbook.getWorksheets().get(0);
+
+// Retrieve an array of embedded images from the worksheet's cells
+ExcelPicture[] cellImages = worksheet.getCellImages();
+
+// Get the name (address) of the cell that contains the first embedded image
+if (cellImages.length > 0) {
+    String cellName = cellImages[0].getEmbedCellName();
+}
+```
+
+---
+
+# Set Custom Font Stream
+## Set custom font stream for Excel workbook
+```java
+// Create a new Workbook instance
+Workbook workbook = new Workbook();
+
+// Create a FileInputStream for the custom font
+FileInputStream stream = new FileInputStream("font.ttf");
+
+// Set the custom font stream(s) to be used in the workbook
+workbook.setCustomFontStreams(new FileInputStream[]{stream});
+```
+
+---
