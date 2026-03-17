@@ -6541,7 +6541,7 @@ Worksheet sheet = workbook.getWorksheets().get(0);
 sheet.getCellRange("A1").setValue("&=Array");
 
 // Add a parameter named "Array" with an array of strings as its value
-workbook.getMarkerDesigner().addArray("Array", new String[] { "Spire.Xls", "Spire.Doc", "Spire.PDF", "Spire.Presentation", "Spire.Email" });
+workbook.getMarkerDesigner().addParameter("Array", new String[] { "Spire.Xls", "Spire.Doc", "Spire.PDF", "Spire.Presentation", "Spire.Email" });
 
 // Apply the marker design to the workbook
 workbook.getMarkerDesigner().apply();
@@ -9373,6 +9373,27 @@ FileInputStream stream = new FileInputStream("font.ttf");
 
 // Set the custom font stream(s) to be used in the workbook
 workbook.setCustomFontStreams(new FileInputStream[]{stream});
+```
+
+---
+# Convert Excel to HTML with Comments
+## Convert Excel worksheet to HTML while preserving comments
+```java
+//Create a workbook
+Workbook workbook = new Workbook();
+
+//Load an excel document
+workbook.loadFromFile(inputFile);
+
+//Get the first sheet
+Worksheet sheet = workbook.getWorksheets().get(0);
+
+//Keep comments
+HTMLOptions options = new HTMLOptions();
+options.isSaveComment(true);
+
+//Save to HTML file
+sheet.saveToHtml(outputFile,options);
 ```
 
 ---

@@ -11,8 +11,8 @@ public class addVariableArray {
         // Set the value of cell range A1 to "&=Array"
         sheet.getCellRange("A1").setValue("&=Array");
 
-        // Add a array named "Array" with its value
-        workbook.getMarkerDesigner().addArray("Array", new String[] { "Spire.Xls", "Spire.Doc", "Spire.PDF", "Spire.Presentation", "Spire.Email" });
+        // Add a parameter named "Array" with an array of strings as its value
+        workbook.getMarkerDesigner().addParameter("Array", new String[] { "Spire.Xls", "Spire.Doc", "Spire.PDF", "Spire.Presentation", "Spire.Email" });
 
         // Apply the marker design to the workbook
         workbook.getMarkerDesigner().apply();
@@ -24,9 +24,12 @@ public class addVariableArray {
         sheet.getAllocatedRange().autoFitRows();
         sheet.getAllocatedRange().autoFitColumns();
 
-        String outputFile="output/addVariableArray.xlsx";
+        // Specify the output file path for saving the workbook
+        String output = "output/addVariableArray_result.xlsx";
+
         // Save the workbook to the specified file path using Excel 2013 format
-        workbook.saveToFile(outputFile, ExcelVersion.Version2013);
+        workbook.saveToFile(output, ExcelVersion.Version2013);
+
         // Clean up and release resources used by the workbook
         workbook.dispose();
     }
