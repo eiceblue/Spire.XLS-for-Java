@@ -9397,3 +9397,119 @@ sheet.saveToHtml(outputFile,options);
 ```
 
 ---
+
+# excelToMarkdown java core
+## Convert Excel file to Markdown format
+```java
+Workbook workbook = new Workbook();
+workbook.loadFromFile("data/excelToMarkdown.xlsx");
+workbook.saveToFile("output/ExcelToMarkdown_out.md", FileFormat.Markdown);
+```
+
+---
+
+# java core functionality
+## convert markdown to excel
+```java
+// Create a new Workbook instance
+Workbook workbook = new Workbook();
+
+// Load an existing Markdown file into the workbook
+workbook.loadFromMarkdown("data/markdownToExcel.md");
+
+// Save the workbook to an Excel file
+workbook.saveToFile("output/markdownToExcel.xlsx", FileFormat.Version2013);
+
+// Release resources
+workbook.dispose();
+```
+
+---
+
+# spire.xls java conversion
+## convert Excel to HTML with inline styles
+```java
+Workbook workbook = new Workbook();
+workbook.loadFromFile("data/toHtmlInlineStyle.xlsx");
+Worksheet sheet = workbook.getWorksheets().get(0);
+HTMLOptions options = new HTMLOptions();
+options.setImageEmbedded(true);
+options.setStyleDefine(HTMLOptions.StyleDefineType.Inline);
+sheet.saveToHtml("output/toHtmlInlineStyle_result.html", options);
+workbook.dispose();
+```
+
+---
+
+# spire.xls java math equation
+## add, export and update math equations in Excel
+```java
+Workbook workbook = new Workbook();
+Worksheet sheet = workbook.getWorksheets().get(0);
+
+// Insert Equations
+sheet.getEquations().addEquation(20, 0, 100, 100, "x_{1}^{2}");
+
+// Get the Equations
+String mathML = sheet.getEquations().get(0).exportMathML();
+String LaTex = sheet.getEquations().get(1).exportLaTex();
+
+// Update the special math equation
+IXlsEquation equation1 = sheet.getEquations().get(0);
+equation1.updateByLaTexText("\\begin{pmatrix} \r\n  1 & 0 \\\\ \r\n  0 & 1  \r\n \\end{pmatrix} \r\n \\left(x-1\\right)\\left(x+3\\right) \\left(x-1\\right)\\left(x+3\\right)");
+```
+
+---
+
+# java formula usage
+## Use F.INV formula in Excel cell
+```java
+// Get the first worksheet
+Worksheet sheet = workbook.getWorksheets().get(0);
+
+// Set F.INV formula in cell A1
+sheet.getCellRange("A1").setFormula("=F.INV(0.05, 4, 5)");
+
+// Calculate all formulas in workbook
+workbook.calculateAllValue();
+```
+
+---
+
+# Spire.XLS Java Formula
+## Use T.INV.2T formula in cell
+```java
+// Get the first worksheet from the workbook
+Worksheet sheet = workbook.getWorksheets().get(0);
+
+//Use T.INV.2T formula
+sheet.getCellRange("A1").setFormula("=T.INV.2T(0.05, 10)");
+workbook.calculateAllValue();
+```
+
+---
+
+# spire.xls java textbox
+## set text direction for a textbox
+```java
+// Add a TextBox shape to the worksheet
+XlsTextBoxShape textbox = (XlsTextBoxShape) sheet.getTextBoxes().addTextBox(4, 2, 100, 300);
+
+// Set the text content
+textbox.setText("مبرمج , اختبار .");
+
+// Set horizontal alignment to Left
+textbox.setHAlignment(CommentHAlignType.Left);
+
+// Set inner margins
+textbox.setInnerLeftMargin(1);
+textbox.setInnerRightMargin(3);
+textbox.setInnerTopMargin(1);
+textbox.setInnerBottomMargin(1);
+
+// Set text direction to Right-to-Left
+textbox.setTextDirection(TextDirectionType.RightToLeft);
+```
+
+---
+
