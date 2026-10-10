@@ -9513,3 +9513,317 @@ textbox.setTextDirection(TextDirectionType.RightToLeft);
 
 ---
 
+# Spire.XLS Row and Column Permutation
+## Transpose cell ranges with different CopyRangeOptions
+
+```java
+// Get the first worksheet
+Worksheet sheet = workbook.getWorksheets().get(0);
+
+// Transpose data and copy all formatting/content
+EnumSet<CopyRangeOptions> options = EnumSet.of(CopyRangeOptions.Transpose, CopyRangeOptions.All);
+sheet.getRange().get("A1:C4").copy(sheet.getRange().get("E2:H3"), options);
+sheet.getRange().get("A1:B5").copy(sheet.getRange().get("E7"), options);
+
+// Transpose data and copy only cell styles
+options = EnumSet.of(CopyRangeOptions.Transpose, CopyRangeOptions.CopyStyles);
+sheet.getRange().get("A11:B11").copy(sheet.getRange().get("D12"), options);
+
+// Transpose data and copy only conditional formats
+options = EnumSet.of(CopyRangeOptions.Transpose, CopyRangeOptions.CopyConditionalFormats);
+sheet.getRange().get("B17:B20").copy(sheet.getRange().get("D17"), options);
+
+// Transpose data and copy only cell styles
+options = EnumSet.of(CopyRangeOptions.Transpose, CopyRangeOptions.CopyStyles);
+sheet.getRange().get("B17:B20").copy(sheet.getRange().get("D20"), options);
+
+// Transpose data only, without copying formatting
+options = EnumSet.of(CopyRangeOptions.Transpose);
+sheet.getRange().get("B17:B20").copy(sheet.getRange().get("D23"), options);
+```
+
+---
+
+# Java Core Functionality
+## Convert an Excel workbook to JSON using Spire.XLS
+
+```java
+// Create a new Workbook instance
+Workbook workbook = new Workbook();
+
+// Load the Excel file
+workbook.loadFromFile("Data/DataExport.xlsx");
+
+// Save the workbook data as JSON
+workbook.saveToFile("ExcelToJSON.json", FileFormat.Json);
+
+// Release resources
+workbook.dispose();
+```
+
+---
+
+# Spire.XLS specificCellsToHtml
+## Convert a specified cell range to an HTML string
+
+```java
+// Get the first worksheet in the Excel file
+Worksheet sheet = workbook.getWorksheets().get(0);
+
+// Get the specified cell range from the worksheet
+CellRange cell = sheet.getCellRange("A1:E7");
+
+// Extract the HTML representation of the selected cell range
+String html = cell.getHtmlString();
+```
+
+---
+
+# Spire.XLS Java conversion
+## Convert Excel to HTML while preserving freeze panes
+```java
+// Set to true to maintain freeze panes effect in HTML, false to ignore
+HTMLOptions.Default.isSaveFreezedPanes(true);
+
+// Save the workbook to an HTML file
+workbook.saveToHtml("ToHtmlWithFreezedPanes.html");
+```
+
+---
+
+# Spire.XLS Java Markdown Export Options
+## Configure Markdown export options and save a workbook as Markdown.
+```java
+// Create export options for Markdown format
+MarkdownOptions options = new MarkdownOptions();
+
+// Set whether to save images with relative paths
+options.isSavePicInRelativePath(true);
+
+// Set whether to save hyperlinks as Markdown reference format
+options.isSaveHyperlinkAsRef(true);
+
+// Save the workbook as Markdown with the specified options
+workbook.saveToMarkdown("ToMarkdownExportOptions_out.md", options);
+```
+
+---
+
+# Java Core Functionality
+## Add an embedded checkbox to an Excel worksheet cell
+
+```java
+// Create a workbook
+Workbook workbook = new Workbook();
+
+// Get the first worksheet
+Worksheet sheet = workbook.getWorksheets().get(0);
+
+// Get cell A1
+XlsRange range = sheet.getRange().get("A1");
+
+// Insert an embedded Office365 checkbox into the cell
+range.insertEmbedCheckBox();
+
+// Set the checkbox state to checked
+range.setEmbedCheckBoxCheckState(true);
+```
+
+---
+
+# Java Core Functionality
+## Using BYROW and BYCOL functions in Spire.XLS
+```java
+// Calculate average score for each row (columns B to F) using BYROW
+sheet.getCellRange("G2").setFormula("=BYROW(B2:F2, LAMBDA(row, AVERAGE(row)))");
+sheet.getCellRange("G3").setFormula("=BYROW(B3:F3, LAMBDA(row, AVERAGE(row)))");
+sheet.getCellRange("G4").setFormula("=BYROW(B4:F4, LAMBDA(row, AVERAGE(row)))");
+sheet.getCellRange("G5").setFormula("=BYROW(B5:F5, LAMBDA(row, AVERAGE(row)))");
+sheet.getCellRange("G6").setFormula("=BYROW(B6:F6, LAMBDA(row, AVERAGE(row)))");
+sheet.getCellRange("G7").setFormula("=BYROW(B7:F7, LAMBDA(row, AVERAGE(row)))");
+
+// Calculate average for each column (subject) using BYCOL
+sheet.getCellRange("B8").setFormula("=BYCOL(B2:B7, LAMBDA(col, AVERAGE(col)))");
+sheet.getCellRange("C8").setFormula("=BYCOL(C2:C7, LAMBDA(col, AVERAGE(col)))");
+sheet.getCellRange("D8").setFormula("=BYCOL(D2:D7, LAMBDA(col, AVERAGE(col)))");
+sheet.getCellRange("E8").setFormula("=BYCOL(E2:E7, LAMBDA(col, AVERAGE(col)))");
+sheet.getCellRange("F8").setFormula("=BYCOL(F2:F7, LAMBDA(col, AVERAGE(col)))");
+sheet.getCellRange("G8").setFormula("=BYCOL(G2:G7, LAMBDA(col, AVERAGE(col)))");
+
+// Combined BYROW and BYCOL usage examples - Comprehensive Statistics
+
+// Get highest average
+sheet.getCellRange("J3").setFormula("=MAX(BYROW(G2:G7, LAMBDA(row, row)))");
+
+// Get lowest average
+sheet.getCellRange("J4").setFormula("=MIN(BYROW(G2:G7, LAMBDA(row, row)))");
+
+// Calculate overall average across all subjects and students
+sheet.getCellRange("J5").setFormula("=BYCOL(B2:F7, LAMBDA(col, AVERAGE(col)))");
+
+// Nested scenario: BYROW nested with BYCOL
+// Double each value in B2:E7 and sum them by row
+sheet.getCellRange("I7").setFormula("=BYROW(B2:E7, LAMBDA(row, SUM(BYCOL(row, LAMBDA(col, col*2)))))");
+
+// Recalculate all formulas to ensure values are up to date
+sheet.CalculateAllValue();
+```
+
+---
+
+# spire.xls java formula
+## Apply the XMATCH function to a worksheet cell
+
+```java
+// Create a new workbook
+Workbook workbook = new Workbook();
+
+// Get the first worksheet in the workbook
+Worksheet sheet = workbook.getWorksheets().get(0);
+
+// Set the formula for cell C4 to use XMATCH function
+sheet.getCellRange("C4").setFormula("=XMATCH(\"Lili\", A2:A5)");
+
+// Calculate all cells
+workbook.calculateAllValue();
+```
+
+---
+
+# spire.xls java scenario
+## create and apply scenarios to worksheet ranges
+```java
+// Access the collection of scenarios in the worksheet
+XlsScenarioCollection scenarios = worksheet.getScenarios();
+
+// Values for "Current % of Change" scenario
+List<Object> currentChangePercentage_Values = new ArrayList<Object>() {{
+    add(0.23); add(0.8); add(1.1); add(0.5); add(0.35); add(0.2);
+}};
+
+// Values for "Increased % of Change" scenario
+List<Object> increasedChangePercentage_Values = new ArrayList<Object>() {{
+    add(0.45); add(0.56); add(0.9); add(0.5); add(0.58); add(0.43);
+}};
+
+// Values for "Decreased % of Change" scenario
+List<Object> decreasedChangePercentage_Values = new ArrayList<Object>() {{
+    add(0.3); add(0.2); add(0.5); add(0.3); add(0.5); add(0.23);
+}};
+
+// Values for "Current Quantity" scenario
+List<Object> currentQuantity_Values = new ArrayList<Object>() {{
+    add(1500); add(3000); add(5000); add(4000); add(500); add(4000);
+}};
+
+// Values for "Increased Quantity" scenario
+List<Object> increasedQuantity_Values = new ArrayList<Object>() {{
+    add(1000); add(5000); add(4500); add(3900); add(10000); add(8900);
+}};
+
+// Values for "Decreased Quantity" scenario
+List<Object> decreasedQuantity_Values = new ArrayList<Object>() {{
+    add(1000); add(2000); add(3000); add(3000); add(300); add(4000);
+}};
+
+// Add percentage change scenarios to range F5:F10
+scenarios.add("Current % of Change", worksheet.getRange().get("F5:F10"), currentChangePercentage_Values);
+scenarios.add("Increased % of Change", worksheet.getRange().get("F5:F10"), increasedChangePercentage_Values);
+scenarios.add("Decreased % of Change", worksheet.getRange().get("F5:F10"), decreasedChangePercentage_Values);
+
+// Add quantity scenarios to range D5:D10
+scenarios.add("Current Quantity", worksheet.getRange().get("D5:D10"), currentQuantity_Values);
+scenarios.add("Increased Quantity", worksheet.getRange().get("D5:D10"), increasedQuantity_Values);
+scenarios.add("Decreased Quantity", worksheet.getRange().get("D5:D10"), decreasedQuantity_Values);
+```
+
+---
+
+# Spire.XLS Java scenario summary
+## Add worksheet scenarios and generate a scenario summary report
+```java
+// Access the collection of scenarios in the worksheet
+XlsScenarioCollection scenarios = worksheet.getScenarios();
+
+// Add a scenario named "Current % of Change" applying current percentage values to cells F5:F10
+scenarios.add("Current % of Change", worksheet.getRange().get("F5:F10"), currentChangePercentage_Values);
+
+// Add a scenario named "Increased % of Change" applying increased percentage values to cells F5:F10
+scenarios.add("Increased % of Change", worksheet.getRange().get("F5:F10"), increasedChangePercentage_Values);
+
+// Add a scenario named "Decreased % of Change" applying decreased percentage values to cells F5:F10
+scenarios.add("Decreased % of Change", worksheet.getRange().get("F5:F10"), decreasedChangePercentage_Values);
+
+// Add a scenario named "Current Quantity" applying current quantity values to cells D5:D10
+scenarios.add("Current Quantity", worksheet.getRange().get("D5:D10"), currentQuantity_Values);
+
+// Add a scenario named "Increased Quantity" applying increased quantity values to cells D5:D10
+scenarios.add("Increased Quantity", worksheet.getRange().get("D5:D10"), increasedQuantity_Values);
+
+// Add a scenario named "Decreased Quantity" applying decreased quantity values to cells D5:D10
+scenarios.add("Decreased Quantity", worksheet.getRange().get("D5:D10"), decreasedQuantity_Values);
+
+// Generate a scenario summary report and place it starting at cell L7
+worksheet.getScenarios().summary(worksheet.getRange().get("L7"));
+```
+
+---
+
+# java delete Excel scenario
+## Delete scenarios from an Excel worksheet by index and name.
+```java
+// Access the scenario collection from the worksheet
+XlsScenarioCollection scenarios = worksheet.getScenarios();
+
+// Delete the first scenario by its index
+scenarios.removeScenarioAt(0);
+
+// Delete a specific scenario by its name
+scenarios.removeScenarioByName("Current Quantity");
+```
+
+---
+
+# Java Core Functionality
+## Edit an existing Excel scenario and apply it to the worksheet
+```java
+// Access the scenario collection in the worksheet
+XlsScenarioCollection scenarios = worksheet.getScenarios();
+
+// Retrieve the existing scenario named "Current Quantity"
+XlsScenario scenario = scenarios.get("Current Quantity");
+
+// New values for the scenario variable cells
+List<Object> increasedQuantityValues = new ArrayList<Object>() {{
+    add(1000);
+    add(5000);
+    add(4500);
+    add(3900);
+    add(10000);
+    add(8900);
+}};
+
+// Update the scenario variable range D5:D10 with the new values
+scenario.setVariableCells(worksheet.getRange().get("D5:D10"), increasedQuantityValues);
+
+// Apply the updated scenario to the worksheet
+scenario.show();
+```
+
+---
+
+# java core functionality
+## Merge scenarios from one worksheet into another
+```java
+// Get the first worksheet from the workbook
+Worksheet worksheet1 = wb.getWorksheets().get(0);
+
+// Get the second worksheet from the workbook
+Worksheet worksheet2 = wb.getWorksheets().get(1);
+
+// Merge scenarios from worksheet2 into worksheet1
+worksheet1.getScenarios().merge(worksheet2);
+```
+
+---
+
